@@ -9,6 +9,7 @@ require 'faker'
 #   Character.create(name: 'Luke', movie: movies.first)
 puts 'Cleaning database...'
 Restaurant.destroy_all
+Review.destroy_all
 
 puts 'Creating restaurants...'
 
@@ -16,11 +17,20 @@ puts 'Creating restaurants...'
   restaurant = Restaurant.new(
     name: Faker::Restaurant.name,
     address: Faker::Address.street_address,
-    phone_number: Faker::PhoneNumber.phone_number_with_country_code,
+    phone_number: Faker::PhoneNumber.cell_phone,
     category: ["chinese", "italian", "japanese", "french", "belgian"].sample
   )
 
   restaurant.save!
   puts "Restauran #{restaurant.id} created!"
+
+  rand(1..5).times do
+    review = Review.new(
+      rating: rand(1..5),
+      content: Faker::Lorem.sentences,
+      restaurant: restaurant
+    )
+    review.save!
+  end
 end
 puts 'Done!'
