@@ -27,7 +27,7 @@ puts 'Creating restaurants...'
   rand(1..5).times do
     review = Review.new(
       rating: rand(1..5),
-      content: Faker::Lorem.sentences,
+      content: Faker::Lorem.paragraph(sentence_count: 2),
       restaurant: restaurant
     )
     review.save!
